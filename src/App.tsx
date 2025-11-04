@@ -8,8 +8,8 @@ const App: React.FC = () => {
   const { movies, loading, error, searchMovies } = useMovieSearch();
 
   // Handle search action
-  const handleSearch = (query: string, append: boolean) => {
-    searchMovies(query, append);
+  const handleSearch = (query: string, prepend: boolean) => {
+    searchMovies(query, prepend);
   };
 
   return (

@@ -12,7 +12,7 @@ export const useMovieSearch = (): MovieSearchHookReturn => {
   const [error, setError] = useState<string | null>(null);
 
   // Search movies with API call
-  const searchMovies = useCallback(async (query: string, append = false) => {
+  const searchMovies = useCallback(async (query: string, prepend = false) => {
     if (!query.trim() || query.length < 3) {
       setError('Query must contain at least 3 characters');
       return;
@@ -26,10 +26,10 @@ export const useMovieSearch = (): MovieSearchHookReturn => {
       const data: OMDbResponse = await response.json();
 
       if (data.Response === 'True' && data.Search) {
-        setMovies(prevMovies => append ? [...prevMovies, ...data.Search] : data.Search);
+        setMovies(prevMovies => prepend ? [...data.Search, ...prevMovies] : data.Search);
       } else {
         setError(data.Error || 'Movies not found');
-        if (!append) {
+        if (!prepend) {
           setMovies([]);
         }
       }

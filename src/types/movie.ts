@@ -22,6 +22,6 @@ export interface MovieSearchHookReturn {
   movies: Movie[];
   loading: boolean;
   error: string | null;
-  searchMovies: (query: string, append?: boolean) => Promise<void>;
+  searchMovies: (query: string, prepend?: boolean) => Promise<void>;
   clearMovies: () => void;
 }

@@ -6,16 +6,16 @@ interface SearchProps {
   loading: boolean;
 }
 
-// Search component with debounced input and append checkbox
+// Search component with debounced input and prepend checkbox
 const Search: React.FC<SearchProps> = ({ onSearch, loading }) => {
   const [query, setQuery] = useState('');
-  const [appendToList, setAppendToList] = useState(false);
+  const [prependToList, setPrependToList] = useState(false);
   const [lastSearchValue, setLastSearchValue] = useState('');
 
   // Debounced search function (2 second delay)
   const debouncedSearch = useDebounce((searchQuery: string) => {
     if (searchQuery.trim() && searchQuery.length >= 3 && searchQuery !== lastSearchValue) {
-      onSearch(searchQuery, appendToList);
+      onSearch(searchQuery, prependToList);
       setLastSearchValue(searchQuery);
       setQuery(''); // Clear input after search
     }
@@ -35,7 +35,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, loading }) => {
 
   // Handle checkbox change
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAppendToList(e.target.checked);
+    setPrependToList(e.target.checked);
   };
 
   // ...existing code...
@@ -62,7 +62,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, loading }) => {
           className="search__checkbox"
           type="checkbox"
           id="checkbox"
-          checked={appendToList}
+          checked={prependToList}
           onChange={handleCheckboxChange}
         />
         <label className="search__label-checkbox" htmlFor="checkbox">
